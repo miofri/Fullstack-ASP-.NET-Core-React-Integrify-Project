@@ -46,7 +46,8 @@ namespace WebApiController.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> DeleteOneById([FromRoute] Guid id)
         {
-            return StatusCode(204, await _baseService.DeleteOneById(id));
+            var deletedObject = await _baseService.DeleteOneById(id);
+            return Ok(deletedObject);
         }
     }
 }

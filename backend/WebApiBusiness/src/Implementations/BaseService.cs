@@ -28,10 +28,10 @@ namespace WebApiBusiness.Implementations
             var foundItem = await _baseRepo.GetOneById(id);
             if (foundItem is null)
             {
-                await _baseRepo.DeleteOneById(foundItem);
-                return true;
+                return false;
             }
-            return false;
+            await _baseRepo.DeleteOneById(foundItem);
+            return true;
         }
 
         public async Task<TReadDto> GetOneById(Guid id)

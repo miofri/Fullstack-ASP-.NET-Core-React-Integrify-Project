@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -49,6 +50,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
             ValidateIssuerSigningKey = true
         };
     });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("EmailWhiteList", policy => policy.RequireClaim(ClaimTypes.Email, "abcda.mail.com"));
+});
 
 builder.Services.Configure<RouteOptions>(options =>
 {

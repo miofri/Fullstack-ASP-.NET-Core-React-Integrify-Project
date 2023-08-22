@@ -7,5 +7,6 @@ namespace WebApiBusiness.Abstraction
     {
         Task<UserUpdateDto> UpdatePassword(Guid id, string newPassword);
         // UserDto GetProfile(string id); -- only in controller
+        Task<UserReadDto> CreateAdmin(UserCreateDto dto);
     }
 }

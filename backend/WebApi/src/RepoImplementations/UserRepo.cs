@@ -19,6 +19,7 @@ public class UserRepo: BaseRepo<User>, IUserRepo
   {
     user.Role = Role.Admin;
     await _users.AddAsync(user);
+    await _context.SaveChangesAsync();
     return user;
   }
   public async Task<User?> FindOneByEmail(string email)
