@@ -19,7 +19,9 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services
     .AddScoped<IUserRepo, UserRepo>()
     .AddScoped<IUserService, UserService>()
-    .AddScoped<IAuthService, AuthService>();
+    .AddScoped<IAuthService, AuthService>()
+    .AddScoped<IProductRepo, ProductRepo>()
+    .AddScoped<IProductService, ProductService>();
 //Add DbContext
 builder.Services.AddDbContext<DatabaseContext>();
 // Add services to the container.
