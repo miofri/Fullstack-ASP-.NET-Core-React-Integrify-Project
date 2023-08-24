@@ -21,7 +21,9 @@ builder.Services
     .AddScoped<IUserService, UserService>()
     .AddScoped<IAuthService, AuthService>()
     .AddScoped<IProductRepo, ProductRepo>()
-    .AddScoped<IProductService, ProductService>();
+    .AddScoped<IProductService, ProductService>()
+    .AddScoped<IOrderRepo, OrderRepo>()
+    .AddScoped<IOrderService, OrderService>();  
 //Add DbContext
 builder.Services.AddDbContext<DatabaseContext>();
 // Add services to the container.

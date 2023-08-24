@@ -66,10 +66,6 @@ namespace WebApi.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("status");
 
-                    b.Property<int>("TotalAmount")
-                        .HasColumnType("integer")
-                        .HasColumnName("total_amount");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");

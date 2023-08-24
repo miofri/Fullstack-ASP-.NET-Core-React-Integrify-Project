@@ -30,7 +30,7 @@ namespace WebApiController.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TReadDto>> CreateOne([FromBody] TCreateDto dto)
+        public virtual async Task<ActionResult<TReadDto>> CreateOne([FromBody] TCreateDto dto)
         {
             var createdObject = await _baseService.CreateOne(dto);
             return CreatedAtAction(nameof(CreateOne), createdObject);

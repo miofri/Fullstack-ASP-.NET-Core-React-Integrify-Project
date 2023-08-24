@@ -14,5 +14,4 @@ public class ProductRepo: BaseRepo<Product>, IProductRepo
     _products = dbContext.Products;
     _context = dbContext;
   }
-  
 }
