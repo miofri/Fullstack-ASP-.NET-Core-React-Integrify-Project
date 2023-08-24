@@ -31,19 +31,13 @@ public class DatabaseContext:DbContext
    optionsBuilder.AddInterceptors(new TimeStampInterceptor());
    optionsBuilder.UseNpgsql(builder.Build()).UseSnakeCaseNamingConvention();
    builder.MapEnum<Role>();
+   builder.MapEnum<OrderStatus>();
  }
  protected override void OnModelCreating(ModelBuilder modelBuilder)
  {
    modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
    modelBuilder.HasPostgresEnum<Role>();
+   modelBuilder.HasPostgresEnum<OrderStatus>();
    modelBuilder.Entity<OrderProducts>().HasKey("OrderId", "ProductId");
-   
-   // Changes created at and updated at to be the current time upon creation
-   // modelBuilder.Entity<User>()
-   //   .Property(u => u.CreatedAt)
-   //   .HasDefaultValueSql("NOW()");
-   // modelBuilder.Entity<User>()
-   //   .Property(u => u.UpdatedAt)
-   //   .HasDefaultValueSql("NOW()");
  }
 }

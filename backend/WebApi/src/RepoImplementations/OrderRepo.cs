@@ -16,10 +16,12 @@ public class OrderRepo: BaseRepo<Order>, IOrderRepo
     _order = dbContext.Orders;
     _context = dbContext;
   }
-  public override Task<Order> CreateOne(Order entity)
+  public async Task<Order> CreateOneOrder(Order entity)
   {
     entity.Status = OrderStatus.Processing;
-    return base.CreateOne(entity);
+    await _order.AddAsync(entity);
+    await _context.SaveChangesAsync();
+    return entity;
   }
 }
 

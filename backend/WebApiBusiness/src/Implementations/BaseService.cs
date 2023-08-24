@@ -50,8 +50,6 @@ namespace WebApiBusiness.Implementations
             {
                 throw new Exception("Item not found");
             }
-            // type T: found Item
-            // type TDto: updated data
             var entity = _mapper.Map(updated, foundItem);
             var updatedEntity = await _baseRepo.UpdateOneById(entity);
             return _mapper.Map<TReadDto>(updatedEntity);

@@ -21,13 +21,13 @@
         {
             return CreatedAtAction(nameof(CreateAdmin), await _userService.CreateAdmin(dto));
         }
-        [Authorize(Roles =  "Admin")]
+        // [Authorize(Roles = "Admin")]
         public override async Task<ActionResult<IEnumerable<UserReadDto>>> GetAll(QueryOptions queryOptions)
         {
             return Ok(await _userService.GetAll(queryOptions));
         }
         // [AllowAnonymous]
-        [Authorize(Policy = "EmailWhiteList")]
+        // [Authorize(Policy = "EmailWhiteList")]
         public override async Task<ActionResult<UserReadDto>> GetOneById(Guid id)
         {
             return Ok(await _userService.GetOneById(id));

@@ -17,6 +17,7 @@ public class MapperProfile : Profile
       CreateMap<ProductUpdateDto, Product>();
       CreateMap<Order, OrderReadDto>();
       CreateMap<OrderCreateDto, Order>();
+      CreateMap<OrderCreateDto, OrderReadDto>();
       CreateMap<OrderUpdateDto, Order>();
       
     }

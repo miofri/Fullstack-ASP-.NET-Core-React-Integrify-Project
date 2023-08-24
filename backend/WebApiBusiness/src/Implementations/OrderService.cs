@@ -10,20 +10,20 @@ namespace WebApiBusiness.Implementations;
 public class OrderService: BaseService<Order, OrderReadDto, OrderCreateDto, OrderUpdateDto>, IOrderService
 {
   private readonly IOrderRepo _orderRepo;
+  private readonly IUserRepo _userRepo;
 
-  public OrderService(IOrderRepo orderRepo, IMapper mapper) : base(orderRepo, mapper)
+  public OrderService(IOrderRepo orderRepo, IUserRepo userRepo, IMapper mapper) : base(orderRepo, mapper)
   {
     _orderRepo = orderRepo;
+    _userRepo = userRepo;
   }
 
-  public OrderCreateWithIdDto ConvertToDtoWithId(OrderCreateDto entity)
+  public async Task<ActionResult<Order>> ConvertToDtoWithId(OrderCreateDto entity, Guid newId)
   {
-    var newEntity =  _mapper.Map<OrderCreateWithIdDto>(entity);
-    return newEntity;
-  }
-  public async Task<OrderReadDto> CreateOneWithId(OrderCreateWithIdDto dto)
-  {
-    var entity = await _orderRepo.CreateOne(_mapper.Map<Order>(dto));
-    return _mapper.Map<OrderReadDto>(entity);
+    var foundUser = await _userRepo.GetOneById(newId) ?? throw new Exception("User not found");
+    var convertedEntity = _mapper.Map<Order>(entity);
+    convertedEntity.User = foundUser; // Set the UserId on the Order entity
+    var savedEntity = await _orderRepo.CreateOneOrder(convertedEntity);
+    return savedEntity;
   }
 }

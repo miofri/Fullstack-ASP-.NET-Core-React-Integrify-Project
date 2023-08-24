@@ -19,7 +19,6 @@ public class OrderController : CrudController<Order, OrderReadDto, OrderCreateDt
   public override async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto dto)
   {
     string authorizationHeader = HttpContext.Request.Headers["Authorization"];
-    Console.WriteLine(authorizationHeader);
     
     if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer "))
     {
@@ -43,7 +42,6 @@ public class OrderController : CrudController<Order, OrderReadDto, OrderCreateDt
       };
       var principal = jwtSecurityTokenHandler.ValidateToken(token, tokenValidationParameters, out _);
       var userIdClaim = principal.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier);
-
       if (userIdClaim == null)
       {
         return StatusCode(400, dto);
@@ -53,9 +51,10 @@ public class OrderController : CrudController<Order, OrderReadDto, OrderCreateDt
       {
         return StatusCode(400, dto);
       }
-      var dtoWithId = _orderService.ConvertToDtoWithId(dto);
-      dtoWithId.UserId = newId;
-      return Ok(await _orderService.CreateOneWithId(dtoWithId));
+      Console.WriteLine("HERE COMES THE NEW ID");
+
+      var dtoWithId = await _orderService.ConvertToDtoWithId(dto, newId);
+      return Ok(dtoWithId);
     }
     return StatusCode(400, dto);
   }

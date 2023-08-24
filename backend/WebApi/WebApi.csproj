@@ -25,10 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebApiController\WebApiController.csproj" />
-    
   </ItemGroup>
-
-
-
-
+  
 </Project>

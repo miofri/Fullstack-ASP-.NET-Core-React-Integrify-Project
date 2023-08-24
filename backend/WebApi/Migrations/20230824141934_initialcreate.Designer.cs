@@ -14,8 +14,8 @@ using WebApiDomain.Entities;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230823114718_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230824141934_initialcreate")]
+    partial class initialcreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,7 @@ namespace WebApi.Migrations
                 .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "order_status", new[] { "shipped", "processing" });
             NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "role", new[] { "admin", "user" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
@@ -65,8 +66,8 @@ namespace WebApi.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer")
+                    b.Property<OrderStatus>("Status")
+                        .HasColumnType("order_status")
                         .HasColumnName("status");
 
                     b.Property<DateTime>("UpdatedAt")

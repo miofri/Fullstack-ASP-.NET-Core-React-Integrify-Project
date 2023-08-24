@@ -7,7 +7,6 @@ namespace WebApiBusiness.Abstraction;
 public interface IOrderService
   : IBaseService<Order, OrderReadDto, OrderCreateDto, OrderUpdateDto>
 {
-  OrderCreateWithIdDto ConvertToDtoWithId(OrderCreateDto entity);
-  Task<OrderReadDto> CreateOneWithId(OrderCreateWithIdDto dto);
+  Task<ActionResult<Order>> ConvertToDtoWithId(OrderCreateDto entity, Guid newId);
 }
 

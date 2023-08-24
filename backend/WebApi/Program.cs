@@ -57,7 +57,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("EmailWhiteList", policy => policy.RequireClaim(ClaimTypes.Email, "abcda.mail.com"));
+    options.AddPolicy("EmailWhiteList", policy => policy.RequireClaim(ClaimTypes.Email, "admin@mail.com"));
 });
 
 builder.Services.Configure<RouteOptions>(options =>

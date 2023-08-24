@@ -1,3 +1,5 @@
+using WebApiDomain.Entities;
+
 namespace WebApiBusiness.Dtos;
 
   public class OrderReadDto
@@ -6,6 +8,7 @@ namespace WebApiBusiness.Dtos;
     public string Description { get; set; }
     public List<string> Images { get; set; }
     public Guid UserId { get; set; }
+    public OrderStatus Status { get; set; }
   }
 
   public class OrderCreateDto
@@ -21,6 +24,8 @@ namespace WebApiBusiness.Dtos;
     public string Description { get; set; }
     public List<string> Images { get; set; }
     public Guid UserId { get; set; }
+    public OrderStatus Status { get; set; }
+
   }
 
   public class OrderUpdateDto
