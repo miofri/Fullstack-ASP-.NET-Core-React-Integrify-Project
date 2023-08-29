@@ -6,6 +6,7 @@ public class Order : BaseEntityWithId
 {
     public OrderStatus Status { get; set; }
     public User User { get; set; }
+    public Guid UserId { get; set; }
     public List<OrderProducts> OrderProducts { get; set; }
 }
 

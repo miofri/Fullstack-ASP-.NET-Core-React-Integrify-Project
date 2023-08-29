@@ -36,8 +36,6 @@ namespace WebApiBusiness.Implementations
 
         public async Task<TReadDto> GetOneById(Guid id)
         {
-            // var result = _mapper.Map<TReadDto>(_baseRepo.GetOneById(id));
-            // return result;
             var entity = await _baseRepo.GetOneById(id);
             var dto = _mapper.Map<TReadDto>(entity);
             return dto;

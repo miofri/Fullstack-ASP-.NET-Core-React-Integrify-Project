@@ -12,8 +12,13 @@ using WebApiBusiness.Abstraction;
 using WebApiBusiness.Implementations;
 using WebApiBusiness.Shared;
 using WebApiDomain.Abstractions;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services
+    .AddControllersWithViews()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 //Add AutoMapper DI
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

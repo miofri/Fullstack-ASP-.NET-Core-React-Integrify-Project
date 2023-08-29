@@ -31,15 +31,19 @@ public class OrderService
         _orderProductRepo = orderProductRepo;
     }
 
-    public async Task<ActionResult<Order>> ConvertToDtoWithId(OrderCreateDto entity, Guid newId)
+    public async Task<ActionResult<OrderReadDto>> CreateOrderAndOrderProducts(
+        OrderCreateDto entity,
+        Guid newId
+    )
     {
-        var productsAndAmount = entity.ProductsAndAmount;
-        var products = await GetProductsAsync(entity.ProductsAndAmount);
         var foundUser = await _userRepo.GetOneById(newId) ?? throw new Exception("User not found");
-
         var convertedEntity = _mapper.Map<Order>(entity);
         convertedEntity.User = foundUser;
         convertedEntity.Status = OrderStatus.Processing;
+        var savedEntity = await _orderRepo.CreateOneOrder(convertedEntity);
+
+        var products = await GetProductsAsync(entity.ProductsAndAmount);
+        var productsAndAmount = entity.ProductsAndAmount;
         convertedEntity.OrderProducts = new List<OrderProducts>();
 
         for (int i = 0; i < products.Count; i++)
@@ -52,13 +56,10 @@ public class OrderService
                 Amount = amount,
                 Order = convertedEntity
             };
-            Console.WriteLine("Should be in the  loop now");
-
             convertedEntity.OrderProducts.Add(orderProduct);
         }
         await _orderProductRepo.AddOrderProductsToOrder(convertedEntity);
-        var savedEntity = await _orderRepo.CreateOneOrder(convertedEntity);
-        return savedEntity;
+        return _mapper.Map<OrderReadDto>(savedEntity);
     }
 
     public async Task<List<Product>> GetProductsAsync(List<OrderProductsDto> orderProductsList)

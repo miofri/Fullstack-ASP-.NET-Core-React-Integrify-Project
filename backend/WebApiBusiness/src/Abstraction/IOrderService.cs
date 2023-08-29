@@ -4,9 +4,7 @@ using WebApiDomain.Entities;
 
 namespace WebApiBusiness.Abstraction;
 
-public interface IOrderService
-  : IBaseService<Order, OrderReadDto, OrderCreateDto, OrderUpdateDto>
+public interface IOrderService : IBaseService<Order, OrderReadDto, OrderCreateDto, OrderUpdateDto>
 {
-  Task<ActionResult<Order>> ConvertToDtoWithId(OrderCreateDto entity, Guid newId);
+    Task<ActionResult<OrderReadDto>> CreateOrderAndOrderProducts(OrderCreateDto entity, Guid newId);
 }
-
