@@ -14,11 +14,13 @@ public class OrderService
     private readonly IOrderRepo _orderRepo;
     private readonly IUserRepo _userRepo;
     private readonly IProductRepo _productRepo;
+    private readonly IOrderProduct _orderProductRepo;
 
     public OrderService(
         IOrderRepo orderRepo,
         IUserRepo userRepo,
         IProductRepo productRepo,
+        IOrderProduct orderProductRepo,
         IMapper mapper
     )
         : base(orderRepo, mapper)
@@ -26,6 +28,7 @@ public class OrderService
         _productRepo = productRepo;
         _orderRepo = orderRepo;
         _userRepo = userRepo;
+        _orderProductRepo = orderProductRepo;
     }
 
     public async Task<ActionResult<Order>> ConvertToDtoWithId(OrderCreateDto entity, Guid newId)
@@ -36,7 +39,7 @@ public class OrderService
 
         var convertedEntity = _mapper.Map<Order>(entity);
         convertedEntity.User = foundUser;
-
+        convertedEntity.Status = OrderStatus.Processing;
         convertedEntity.OrderProducts = new List<OrderProducts>();
 
         for (int i = 0; i < products.Count; i++)
@@ -49,9 +52,11 @@ public class OrderService
                 Amount = amount,
                 Order = convertedEntity
             };
+            Console.WriteLine("Should be in the  loop now");
+
             convertedEntity.OrderProducts.Add(orderProduct);
         }
-
+        await _orderProductRepo.AddOrderProductsToOrder(convertedEntity);
         var savedEntity = await _orderRepo.CreateOneOrder(convertedEntity);
         return savedEntity;
     }
