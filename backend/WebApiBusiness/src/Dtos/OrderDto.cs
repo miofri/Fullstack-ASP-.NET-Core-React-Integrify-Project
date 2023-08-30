@@ -14,7 +14,6 @@ public class OrderReadDto
 public class OrderCreateDto
 {
     public List<OrderProductsDto> ProductsAndAmount { get; set; } // List of product IDs
-    public Guid UserId { get; set; }
     public OrderStatus Status { get; set; }
 }
 
