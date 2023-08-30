@@ -37,14 +37,17 @@ namespace WebApiController.Controllers
         }
 
         [HttpPatch("{id:Guid}")]
-        public async Task<ActionResult<TReadDto>> UpdateOneById([FromRoute] Guid id, [FromForm] TUpdateDto update)
+        public virtual async Task<ActionResult<TReadDto>> UpdateOneById(
+            [FromRoute] Guid id,
+            [FromForm] TUpdateDto update
+        )
         {
             var updatedObject = await _baseService.UpdateOneById(id, update);
             return Ok(updatedObject);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> DeleteOneById([FromRoute] Guid id)
+        public virtual async Task<ActionResult<bool>> DeleteOneById([FromRoute] Guid id)
         {
             var deletedObject = await _baseService.DeleteOneById(id);
             return Ok(deletedObject);
