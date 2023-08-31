@@ -1,9 +1,9 @@
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
 using Swashbuckle.AspNetCore.Filters;
 using WebApi.Database;
 using WebApi.RepoImplementations;
@@ -13,8 +13,13 @@ using WebApiBusiness.Implementations;
 using WebApiBusiness.Shared;
 using WebApiDomain.Abstractions;
 using System.Text.Json.Serialization;
+using Npgsql;
+using System.ComponentModel.DataAnnotations;
+using WebApiDomain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
+var timeStampInterceptor = new TimeStampInterceptor();
+builder.Services.AddSingleton(timeStampInterceptor);
 
 builder.Services
     .AddControllersWithViews()
@@ -36,9 +41,19 @@ builder.Services
     .AddScoped<IOrderService, OrderService>();
 
 //Add DbContext
-builder.Services.AddDbContext<DatabaseContext>();
-
-// Add services to the container.
+builder.Services.AddDbContext<DatabaseContext>(
+    options =>
+    {
+        var npgsqlBuilder = new NpgsqlDataSourceBuilder(
+            builder.Configuration.GetConnectionString("Default")
+        );
+        options.AddInterceptors(timeStampInterceptor);
+        options.UseNpgsql(npgsqlBuilder.Build()).UseSnakeCaseNamingConvention();
+        npgsqlBuilder.MapEnum<Role>();
+        npgsqlBuilder.MapEnum<OrderStatus>();
+    },
+    ServiceLifetime.Scoped
+);
 
 builder.Services.AddControllers();
 
@@ -89,6 +104,17 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseUrls = true;
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        "Policy1",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000");
+        }
+    );
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -102,7 +128,21 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors("Policy1");
 app.MapControllers();
 
 app.Run();
+
+
+// private static void ConfigureDbContextOptions(IServiceCollection services)
+// {
+//     services.AddDbContextPool<DatabaseContext>((serviceProvider, options) =>
+//     {
+//         var config = serviceProvider.GetRequiredService<IConfiguration>();
+//         var connectionString = config.GetConnectionString("Default");
+
+//         var npgsqlBuilder = new NpgsqlConnectionStringBuilder(connectionString);
+
+//         options.UseNpgsql(npgsqlBuilder.ConnectionString);
+//     });
+// }
