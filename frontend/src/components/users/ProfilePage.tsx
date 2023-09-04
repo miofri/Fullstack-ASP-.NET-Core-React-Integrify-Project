@@ -5,6 +5,7 @@ import { RootState } from "../../store/store";
 import { LogoutButton } from "../extras/LogoutButton";
 import { useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
+import { LoggedInHeaderBar } from "../extras/LoggedInHeaderBar";
 
 export const ProfilePage = () => {
   const userInfoFromStore = useSelector((state: RootState) => state.userInfo);
@@ -16,6 +17,7 @@ export const ProfilePage = () => {
   } else {
     return (
       <>
+        <LoggedInHeaderBar />
         <Container maxWidth="sm">
           <Box
             sx={{
@@ -25,15 +27,11 @@ export const ProfilePage = () => {
               alignItems: "center",
               flexDirection: "column",
               gap: 2,
-              my: 6,
+              my: 12,
               textAlign: "center",
               // backgroundColor: "pink",
             }}
           >
-            <Avatar sx={{ bgcolor: "black" }}>
-              {userInfoFromStore.firstName.charAt(0)}
-              {userInfoFromStore.lastName.charAt(0)}
-            </Avatar>
             <Typography variant="h3">
               {`${userInfoFromStore.firstName} ${userInfoFromStore.lastName}`}
             </Typography>

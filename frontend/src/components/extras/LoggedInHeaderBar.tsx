@@ -60,7 +60,7 @@ export const LoggedInHeaderBar = () => {
         navigate(`/profile`);
         break;
       case "Orders":
-        navigate(`/orders`);
+        navigate(`/order`);
         break;
       case "Logout":
         dispatch(userLogout());
@@ -169,7 +169,7 @@ export const LoggedInHeaderBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ bgcolor: "black" }}>
+                <Avatar>
                   {currentUser.firstName.charAt(0)}
                   {currentUser.lastName.charAt(0)}
                 </Avatar>

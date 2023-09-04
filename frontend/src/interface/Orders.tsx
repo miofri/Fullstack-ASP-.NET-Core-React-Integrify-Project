@@ -5,7 +5,7 @@ export interface Order {
 }
 
 export interface OrderArray {
-  orders: Order[];
+  orderArray: Order[];
 }
 
 export enum Status {

@@ -20,12 +20,16 @@ import { currentUserInfoSlice } from "./slices/currentUserInfoSlice";
 import { persistedReducer } from "./persistConfig";
 import { OrderArray } from "../interface/Orders";
 import { OrderProductArray } from "../interface/OrderProduct";
+import { orderSlice } from "./slices/orderSlice";
+import { orderProductSlice } from "./slices/orderProduct";
 
 const appReducer = combineReducers({
   product: productSlice.reducer,
   auth: authSlice.reducer,
   user: currentUserSlice.reducer,
   userInfo: currentUserInfoSlice.reducer,
+  orders: orderSlice.reducer,
+  orderProducts: orderProductSlice.reducer,
 });
 
 const rootReducer = (state: any, action: any) => {

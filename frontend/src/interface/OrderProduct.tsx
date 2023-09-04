@@ -1,6 +1,6 @@
 export interface OrderProduct {
   id: string;
-  prorductId: string;
+  productId: string;
   amount: number;
 }
 export interface OrderProductArray {

@@ -20,7 +20,6 @@ export const dispatchInfoAndRedirect = async (
         role: decodedJWT.role,
       })
     );
-    console.log(decodedJWT.nameid);
     return "success";
   } else {
     return "failed";

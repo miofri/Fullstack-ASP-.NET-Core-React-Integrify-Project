@@ -24,12 +24,15 @@ import { currentUserInfoThunk } from "../../store/thunks/userThunks/currentUserI
 import { useNavigate } from "react-router-dom";
 import { NotLoggedInHeaderBar } from "../extras/NotLoggedInHeaderBar";
 import { mainTheme } from "../../theme";
-import { orderDetailsThunk } from "../../store/thunks/orderThunks/OrderThunk";
+import { orderDetailsThunk } from "../../store/thunks/orderThunks/OrderDetailsThunk";
+import { orderProductThunk } from "../../store/thunks/orderThunks/OrderProductsThunk";
+import { get } from "http";
 
 export const LoginPage = () => {
   const dispatch = useAppDispatch();
   const [loginStatus, setLoginStatus] = useState("");
   const userFromStore = useSelector((state: RootState) => state.user.id);
+  const orderInfo = useSelector((state: RootState) => state.orders.orderArray);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,19 +44,35 @@ export const LoginPage = () => {
         password: data.get("password")?.toString() || "",
       };
       const status = await dispatchInfoAndRedirect(dataToSend, dispatch);
-      console.log(status, userFromStore);
       setLoginStatus(status);
     }
   };
 
   useEffect(() => {
     if (userFromStore !== null && loginStatus == "success") {
-      const getUserProfile = dispatch(currentUserInfoThunk(userFromStore));
-      const getOrderInfo = dispatch(orderDetailsThunk(userFromStore));
-      navigate("/profile");
-      console.log(getUserProfile);
+      const get = async () => {
+        const getUserProfile = await dispatch(
+          currentUserInfoThunk(userFromStore)
+        );
+        const getOrderId = await dispatch(orderDetailsThunk(userFromStore));
+      };
+      get();
     }
   }, [loginStatus]);
+
+  useEffect(() => {
+    console.log("in second useeffect");
+    if (orderInfo !== null && loginStatus == "success") {
+      console.log("in if");
+      const get = async () => {
+        const getOrderProducts = await dispatch(
+          orderProductThunk(orderInfo[0].id)
+        );
+      };
+      get();
+      navigate("/profile");
+    }
+  }, [orderInfo]);
 
   return (
     <div>
