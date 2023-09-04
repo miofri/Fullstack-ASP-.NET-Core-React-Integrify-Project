@@ -19,7 +19,8 @@ export const ProductHero = ({
         alignItems: "center",
         flexDirection: "column",
         gap: 2,
-        my: 6,
+        marginTop: 15,
+        marginBottom: 6,
         textAlign: "center",
       }}
     >

@@ -25,6 +25,6 @@ public class OrderProductsDto
 
 public class OrderUpdateDto
 {
-    public List<OrderProducts> OrderProducts { get; set; }
+    public List<OrderProductsDto> ProductsAndAmount { get; set; }
     public Guid UserId { get; set; }
 }

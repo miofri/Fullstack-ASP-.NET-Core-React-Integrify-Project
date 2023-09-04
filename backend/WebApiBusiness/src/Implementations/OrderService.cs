@@ -69,4 +69,10 @@ public class OrderService
             .ToList();
         return await _productRepo.GetFiltered(productIdsList);
     }
+
+    public async Task<List<OrderReadDto>> GetOrderByUserIdAsync(Guid id)
+    {
+        var result = await _orderRepo.GetOrderByUserIdAsync(id);
+        return _mapper.Map<List<OrderReadDto>>(result);
+    }
 }

@@ -1,10 +1,12 @@
+using System.Text;
+using System.Text.Json.Serialization;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using Npgsql;
 using WebApi.Database;
 using WebApi.RepoImplementations;
 using WebApi.src.RepoImplementations;
@@ -12,13 +14,18 @@ using WebApiBusiness.Abstraction;
 using WebApiBusiness.Implementations;
 using WebApiBusiness.Shared;
 using WebApiDomain.Abstractions;
-using System.Text.Json.Serialization;
-using Npgsql;
-using System.ComponentModel.DataAnnotations;
 using WebApiDomain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 var timeStampInterceptor = new TimeStampInterceptor();
+var npgsqlBuilder = new NpgsqlDataSourceBuilder(
+    builder.Configuration.GetConnectionString("Default")
+);
+npgsqlBuilder.MapEnum<Role>();
+npgsqlBuilder.MapEnum<OrderStatus>();
+var dataSource = npgsqlBuilder.Build();
+
+builder.Services.AddSingleton(npgsqlBuilder);
 builder.Services.AddSingleton(timeStampInterceptor);
 
 builder.Services
@@ -41,16 +48,12 @@ builder.Services
     .AddScoped<IOrderService, OrderService>();
 
 //Add DbContext
+
 builder.Services.AddDbContext<DatabaseContext>(
     options =>
     {
-        var npgsqlBuilder = new NpgsqlDataSourceBuilder(
-            builder.Configuration.GetConnectionString("Default")
-        );
         options.AddInterceptors(timeStampInterceptor);
-        options.UseNpgsql(npgsqlBuilder.Build()).UseSnakeCaseNamingConvention();
-        npgsqlBuilder.MapEnum<Role>();
-        npgsqlBuilder.MapEnum<OrderStatus>();
+        options.UseNpgsql(dataSource).UseSnakeCaseNamingConvention();
     },
     ServiceLifetime.Scoped
 );
@@ -110,7 +113,8 @@ builder.Services.AddCors(options =>
         "Policy1",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000");
+            policy.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+            ;
         }
     );
 });
@@ -123,26 +127,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("Policy1");
 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("Policy1");
 app.MapControllers();
 
 app.Run();
-
-
-// private static void ConfigureDbContextOptions(IServiceCollection services)
-// {
-//     services.AddDbContextPool<DatabaseContext>((serviceProvider, options) =>
-//     {
-//         var config = serviceProvider.GetRequiredService<IConfiguration>();
-//         var connectionString = config.GetConnectionString("Default");
-
-//         var npgsqlBuilder = new NpgsqlConnectionStringBuilder(connectionString);
-
-//         options.UseNpgsql(npgsqlBuilder.ConnectionString);
-//     });
-// }
+dataSource.Dispose();

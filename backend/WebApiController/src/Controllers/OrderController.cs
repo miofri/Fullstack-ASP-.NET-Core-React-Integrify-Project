@@ -6,6 +6,7 @@ using WebApiDomain.Entities;
 
 namespace WebApiController.Controllers;
 
+[Microsoft.AspNetCore.Cors.EnableCors("Policy1")]
 public class OrderController : CrudController<Order, OrderReadDto, OrderCreateDto, OrderUpdateDto>
 {
     private readonly IOrderService _orderService;
@@ -22,7 +23,7 @@ public class OrderController : CrudController<Order, OrderReadDto, OrderCreateDt
 
         if (userIdClaim == null)
         {
-            return StatusCode(400, dto);
+            return StatusCode(401, dto);
         }
 
         var userId = userIdClaim.Value;
@@ -34,5 +35,13 @@ public class OrderController : CrudController<Order, OrderReadDto, OrderCreateDt
         var dtoWithId = await _orderService.CreateOrderAndOrderProducts(dto, newId);
 
         return Ok(dtoWithId);
+    }
+
+    [HttpGet("/api/v1/userid/{id:Guid}")]
+    public virtual async Task<ActionResult<IEnumerable<OrderReadDto>>> GetOrderByUserId(
+        [FromRoute] Guid id
+    )
+    {
+        return Ok(await _orderService.GetOrderByUserIdAsync(id));
     }
 }

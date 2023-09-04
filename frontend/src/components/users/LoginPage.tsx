@@ -22,15 +22,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { currentUserInfoThunk } from "../../store/thunks/userThunks/currentUserInfoThunk";
 import { useNavigate } from "react-router-dom";
-import { ConstructionOutlined } from "@mui/icons-material";
+import { NotLoggedInHeaderBar } from "../extras/NotLoggedInHeaderBar";
+import { mainTheme } from "../../theme";
+import { orderDetailsThunk } from "../../store/thunks/orderThunks/OrderThunk";
 
 export const LoginPage = () => {
   const dispatch = useAppDispatch();
   const [loginStatus, setLoginStatus] = useState("");
   const userFromStore = useSelector((state: RootState) => state.user.id);
   const navigate = useNavigate();
-
-  console.log(userFromStore);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,6 +49,7 @@ export const LoginPage = () => {
   useEffect(() => {
     if (userFromStore !== null && loginStatus == "success") {
       const getUserProfile = dispatch(currentUserInfoThunk(userFromStore));
+      const getOrderInfo = dispatch(orderDetailsThunk(userFromStore));
       navigate("/profile");
       console.log(getUserProfile);
     }
@@ -56,17 +57,18 @@ export const LoginPage = () => {
 
   return (
     <div>
+      <NotLoggedInHeaderBar />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 15,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "black" }}>
+          <Avatar sx={{ m: 1, bgcolor: mainTheme.palette.primary.light }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">

@@ -7,6 +7,7 @@ using WebApiDomain.Shared;
 
 namespace WebApiController.Controllers;
 
+[Microsoft.AspNetCore.Cors.EnableCors("Policy1")]
 public class ProductController
     : CrudController<Product, ProductReadDto, ProductCreateDto, ProductUpdateDto>
 {

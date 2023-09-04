@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { registerThunk } from "../../store/thunks/userThunks/registerThunk";
 import { Alert, AlertTitle } from "@mui/material";
+import { NotLoggedInHeaderBar } from "../extras/NotLoggedInHeaderBar";
 
 export const RegisterPage = () => {
   const dispatch = useAppDispatch();
@@ -41,9 +42,10 @@ export const RegisterPage = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <NotLoggedInHeaderBar />
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 15,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

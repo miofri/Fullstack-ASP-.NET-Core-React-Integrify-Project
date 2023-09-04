@@ -12,19 +12,22 @@ public class MapperProfile : Profile
         {
             CreateMap<User, UserReadDto>();
             CreateMap<User, OrderReadDto>();
-            // CreateMap<Order, OrderReadDto>()
-            //     .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id));
             CreateMap<UserUpdateDto, User>();
             CreateMap<UserCreateDto, User>();
+
             CreateMap<Product, ProductReadDto>();
             CreateMap<ProductCreateDto, Product>();
             CreateMap<ProductUpdateDto, Product>();
+
             CreateMap<Order, OrderReadDto>();
             CreateMap<Order, OrderProductReadDto>();
             CreateMap<Order, OrderProductsDto>();
+
             CreateMap<OrderCreateDto, Order>();
             CreateMap<OrderCreateDto, OrderReadDto>();
             CreateMap<OrderUpdateDto, Order>();
+            CreateMap<OrderProducts, OrderProductReadDto>();
+
             CreateMap<OrderProducts, OrderProductReadDto>();
         }
     }

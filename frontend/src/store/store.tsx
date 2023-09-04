@@ -9,6 +9,8 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
 import { productSlice } from "./slices/productSlice";
 import { ProductState } from "../interface/Products";
 import { authSlice } from "./slices/authSlice";
@@ -16,15 +18,24 @@ import { BearerToken, CurrentUser, CurrentUserInfo } from "../interface/Users";
 import { currentUserSlice } from "./slices/currentUserSlice";
 import { currentUserInfoSlice } from "./slices/currentUserInfoSlice";
 import { persistedReducer } from "./persistConfig";
+import { OrderArray } from "../interface/Orders";
+import { OrderProductArray } from "../interface/OrderProduct";
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   product: productSlice.reducer,
   auth: authSlice.reducer,
   user: currentUserSlice.reducer,
   userInfo: currentUserInfoSlice.reducer,
 });
 
-const rootReducerWithPersistence = persistedReducer(rootReducer);
+const rootReducer = (state: any, action: any) => {
+  if (action.type === "USER_LOGOUT") {
+    return appReducer(undefined, action);
+  }
+  return appReducer(state, action);
+};
+
+const rootReducerWithPersistence = persistedReducer(appReducer);
 
 export const store = configureStore({
   reducer: rootReducerWithPersistence,
@@ -42,6 +53,8 @@ export type RootState = {
   auth: BearerToken;
   user: CurrentUser;
   userInfo: CurrentUserInfo;
+  orders: OrderArray;
+  orderProducts: OrderProductArray;
 };
 
 export const persistor = persistStore(store);
