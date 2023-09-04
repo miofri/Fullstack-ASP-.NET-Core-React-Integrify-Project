@@ -26,17 +26,8 @@ public class OrderRepo : BaseRepo<Order>, IOrderRepo
 
     public virtual async Task<List<Order>> GetOrderByUserIdAsync(Guid id)
     {
-        try
-        {
-            var orders = await _order.Where(entity => entity.UserId == id).ToListAsync();
+        var orders = await _order.Where(entity => entity.UserId == id).ToListAsync();
 
-            return orders;
-        }
-        catch (Exception ex)
-        {
-            // Log or handle the exception
-            Console.WriteLine($"Error retrieving orders by UserId: {ex}");
-            throw; // You might want to handle the exception here or rethrow it.
-        }
+        return orders;
     }
 }

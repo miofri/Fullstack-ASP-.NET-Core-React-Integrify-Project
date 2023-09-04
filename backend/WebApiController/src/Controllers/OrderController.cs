@@ -37,7 +37,7 @@ public class OrderController : CrudController<Order, OrderReadDto, OrderCreateDt
         return Ok(dtoWithId);
     }
 
-    [HttpGet("/api/v1/userid/{id:Guid}")]
+    [HttpGet("/api/v1/orders/userid/{id:Guid}")]
     public virtual async Task<ActionResult<IEnumerable<OrderReadDto>>> GetOrderByUserId(
         [FromRoute] Guid id
     )

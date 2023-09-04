@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi.Database;
 using WebApi.RepoImplementations;
+using WebApiBusiness.Dtos;
 using WebApiDomain.Abstractions;
 using WebApiDomain.Entities;
 
@@ -26,5 +27,11 @@ public class OrderProductRepo : BaseRepo<OrderProducts>, IOrderProduct
             await _orderProduct.AddAsync(product);
         }
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<OrderProducts>> GetByOrderId(Guid id)
+    {
+        var orders = await _orderProduct.Where(entity => entity.OrderId == id).ToListAsync();
+        return orders;
     }
 }

@@ -2,6 +2,7 @@ namespace WebApiBusiness.Dtos;
 
 public class ProductReadDto
 {
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public float Price { get; set; }
     public string Description { get; set; }
@@ -14,7 +15,7 @@ public class ProductCreateDto
     public float Price { get; set; }
     public string Description { get; set; }
     public List<string> Images { get; set; }
-    public int Inventory {get; set; }
+    public int Inventory { get; set; }
 }
 
 public class ProductUpdateDto
@@ -23,5 +24,5 @@ public class ProductUpdateDto
     public float Price { get; set; }
     public string Description { get; set; }
     public List<string> Images { get; set; }
-    public int Inventory {get; set; }
+    public int Inventory { get; set; }
 }

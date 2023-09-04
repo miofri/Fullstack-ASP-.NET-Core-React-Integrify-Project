@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using WebApiBusiness.Abstraction;
 using WebApiBusiness.Dtos;
 using WebApiDomain.Abstractions;
@@ -16,5 +17,11 @@ public class OrderProductService
         : base(orderProductRepo, mapper)
     {
         _orderProductRepo = orderProductRepo;
+    }
+
+    public async Task<List<OrderProductReadDto>> GetByOrderId(Guid id)
+    {
+        var orders = await _orderProductRepo.GetByOrderId(id);
+        return _mapper.Map<List<OrderProductReadDto>>(orders);
     }
 }

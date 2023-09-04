@@ -22,4 +22,10 @@ public class OrderProductController
     {
         _orderProductService = orderProductService;
     }
+
+    [HttpGet("orderid/{id:Guid}")]
+    public async Task<ActionResult<List<OrderProductReadDto>>> GetOneByOrderId([FromRoute] Guid id)
+    {
+        return Ok(await _orderProductService.GetByOrderId(id));
+    }
 }
