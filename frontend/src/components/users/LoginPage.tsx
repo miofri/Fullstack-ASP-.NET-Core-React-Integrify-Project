@@ -65,9 +65,7 @@ export const LoginPage = () => {
     if (orderInfo !== null && loginStatus == "success") {
       console.log("in if");
       const get = async () => {
-        const getOrderProducts = await dispatch(
-          orderProductThunk(orderInfo[0].id)
-        );
+        const getOrderProducts = await dispatch(orderProductThunk(orderInfo));
       };
       get();
       navigate("/profile");

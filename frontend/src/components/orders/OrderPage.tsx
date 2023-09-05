@@ -1,37 +1,40 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { useAppDispatch } from "../../store/hooks";
-import { useEffect } from "react";
-import { orderDetailsThunk } from "../../store/thunks/orderThunks/OrderDetailsThunk";
+
 import { LoggedInHeaderBar } from "../extras/LoggedInHeaderBar";
 import { Box, Container, CssBaseline, Typography } from "@mui/material";
+import { OrderProduct2DArray } from "../../interface/OrderProduct";
 
 export const OrderPage = () => {
   const orderInfo = useSelector((state: RootState) => state.orders.orderArray);
-  console.log(orderInfo);
 
   const orderProductsInfo = useSelector(
-    (state: RootState) => state.orderProducts.orderProducts
+    (state: OrderProduct2DArray) => state.orderProducts.orderProducts
   );
   const userInfo = useSelector((state: RootState) => state.userInfo);
   const products = useSelector((state: RootState) => state.product.products);
 
-  const extractProductId = orderProductsInfo.map(({ productId, amount }) => {
-    const matchingId = products.find((prod) => prod.id === productId);
-    if (matchingId) {
-      return { productId, amount, ...matchingId };
-    }
-  });
-  const finalArray = extractProductId.filter((item) => item !== null);
-  let totalVal = 0;
-  const totalValCalculator = () => {
-    finalArray.forEach((element) => {
-      if (element?.amount !== undefined && element.price !== undefined) {
-        totalVal = element?.amount * element?.price + totalVal;
-      }
+  let mappingAmountAndPrice: any = [];
+  const mappingOrderProducts = () => {
+    orderProductsInfo.forEach((element) => {
+      const extract = element.map(({ productId, amount }) => {
+        const matchingId = products.find((prod) => prod.id === productId);
+        if (matchingId) {
+          return { productId, amount, ...matchingId };
+        }
+      });
+      mappingAmountAndPrice = mappingAmountAndPrice.concat(extract);
     });
   };
-  totalValCalculator();
+  mappingOrderProducts();
+
+  let finalVal = 0;
+  const totalVal = () => {
+    mappingAmountAndPrice.forEach((element: any) => {
+      finalVal = element.amount * element.price + finalVal;
+    });
+  };
+  totalVal();
 
   return (
     <div>
@@ -43,7 +46,7 @@ export const OrderPage = () => {
           <hr></hr>
         </Box>
         <Box sx={{ my: 5 }}>
-          {finalArray.map((prod) => (
+          {mappingAmountAndPrice.map((prod: any) => (
             <Box
               sx={{
                 display: "flex",
@@ -76,7 +79,7 @@ export const OrderPage = () => {
           >
             <Box>
               <Typography variant="h4">Total amount:</Typography>
-              <Typography variant="h5">{totalVal}</Typography>
+              <Typography variant="h5">{finalVal}</Typography>
             </Box>
             <Box>
               <Typography variant="h4">Delivery address:</Typography>

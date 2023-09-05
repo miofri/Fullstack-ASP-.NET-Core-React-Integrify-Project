@@ -6,3 +6,9 @@ export interface OrderProduct {
 export interface OrderProductArray {
   orderProducts: OrderProduct[];
 }
+
+export interface OrderProduct2DArray {
+  orderProducts: {
+    orderProducts: [OrderProduct[]];
+  };
+}
