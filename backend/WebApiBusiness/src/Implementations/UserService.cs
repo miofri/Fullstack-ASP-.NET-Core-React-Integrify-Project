@@ -16,7 +16,6 @@ namespace WebApiBusiness.Implementations
         public UserService(IUserRepo userRepo, IMapper mapper)
             : base(userRepo, mapper)
         {
-            Console.WriteLine("=========IN USER SERVICE================");
             _userRepo = userRepo;
         }
 

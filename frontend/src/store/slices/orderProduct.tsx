@@ -10,7 +10,12 @@ export const orderProductSlice = createSlice({
   initialState: initialStateOrderProducts,
   reducers: {
     setProduct: (state, action: PayloadAction<OrderProduct>) => {
-      state.orderProducts.push(action.payload);
+      const updatedOrderProducts = [...state.orderProducts, action.payload];
+      console.log("updatedOrderProduct", updatedOrderProducts);
+      state.orderProducts = updatedOrderProducts;
+    },
+    emptyProduct: (state) => {
+      state = initialStateOrderProducts;
     },
   },
 });

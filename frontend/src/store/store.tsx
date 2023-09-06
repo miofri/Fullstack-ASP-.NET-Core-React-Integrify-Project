@@ -22,6 +22,8 @@ import { OrderArray } from "../interface/Orders";
 import { OrderProductArray } from "../interface/OrderProduct";
 import { orderSlice } from "./slices/orderSlice";
 import { orderProductSlice } from "./slices/orderProduct";
+import { cartSlice } from "./slices/cartSlice";
+import { CartState } from "../interface/Cart";
 
 const appReducer = combineReducers({
   product: productSlice.reducer,
@@ -30,6 +32,7 @@ const appReducer = combineReducers({
   userInfo: currentUserInfoSlice.reducer,
   orders: orderSlice.reducer,
   orderProducts: orderProductSlice.reducer,
+  cart: cartSlice.reducer,
 });
 
 const rootReducer = (state: any, action: any) => {
@@ -59,6 +62,7 @@ export type RootState = {
   userInfo: CurrentUserInfo;
   orders: OrderArray;
   orderProducts: OrderProductArray;
+  cart: CartState;
 };
 
 export const persistor = persistStore(store);

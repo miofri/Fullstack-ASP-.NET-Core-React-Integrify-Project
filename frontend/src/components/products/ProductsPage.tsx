@@ -2,19 +2,23 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Box,
+  Button,
   Card,
+  CardActions,
   CardContent,
   CardMedia,
   Container,
   Grid,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
-import { RootState } from "../../store/store";
+import { RootState, store } from "../../store/store";
 import { Products } from "../../interface/Products";
 import { ProductHero } from "./ProductsHero";
 import { LoggedInHeaderBar } from "../extras/LoggedInHeaderBar";
 import { NotLoggedInHeaderBar } from "../extras/NotLoggedInHeaderBar";
+import { cartSlice } from "../../store/slices/cartSlice";
 
 export const ProductPage = () => {
   const productFromStore = useSelector(
@@ -26,6 +30,10 @@ export const ProductPage = () => {
   useEffect(() => {
     setProducts(productFromStore);
   }, [productFromStore]);
+
+  const handleAddToCart = (data: Products) => {
+    store.dispatch(cartSlice.actions.addProduct(data));
+  };
   return (
     <>
       {bearerToken !== "" ? <LoggedInHeaderBar /> : <NotLoggedInHeaderBar />}
@@ -39,7 +47,6 @@ export const ProductPage = () => {
           maxWidth: "xl",
         }}
       >
-        {" "}
         <Box sx={{ width: "100%" }}>
           <Grid
             container
@@ -65,6 +72,20 @@ export const ProductPage = () => {
                     </Typography>
                     <Typography variant="body2">{prod.description}</Typography>
                   </CardContent>
+                  <CardActions
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Link to={`/singleproduct/${prod.id}`}>
+                      <Button size="small">More details</Button>
+                    </Link>
+                    <Button size="small" onClick={() => handleAddToCart(prod)}>
+                      Add to cart
+                    </Button>
+                  </CardActions>
                 </Card>
               </Grid>
             ))}

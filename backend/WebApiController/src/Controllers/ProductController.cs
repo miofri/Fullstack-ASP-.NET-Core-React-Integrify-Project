@@ -31,7 +31,7 @@ public class ProductController
     [Authorize(Roles = "Admin")]
     public override async Task<ActionResult<ProductReadDto>> UpdateOneById(
         [FromRoute] Guid id,
-        [FromForm] ProductUpdateDto update
+        [FromBody] ProductUpdateDto update
     )
     {
         var updatedObject = await _productService.UpdateOneById(id, update);

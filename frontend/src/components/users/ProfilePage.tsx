@@ -1,14 +1,16 @@
-import { Avatar, Box, Container, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
 import { LogoutButton } from "../extras/LogoutButton";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
 import { LoggedInHeaderBar } from "../extras/LoggedInHeaderBar";
+import { AdminUserOperationPage } from "./admin/AdminUserOperationPage";
 
 export const ProfilePage = () => {
   const userInfoFromStore = useSelector((state: RootState) => state.userInfo);
+  const userRole = useSelector((state: RootState) => state.user.role);
   const bearerToken = useSelector((state: RootState) => state.auth.bearerToken);
   const navigate = useNavigate();
   if (bearerToken == "") {
@@ -56,7 +58,19 @@ export const ProfilePage = () => {
               </Typography>
             </Box>
           </Box>
-          <LogoutButton />
+          {/* <LogoutButton /> */}
+          {userRole == "Admin" ? (
+            <div>
+              <Link to="/admin/users">
+                <Button>Users</Button>
+              </Link>
+              <Link to="/admin/products">
+                <Button>Products</Button>
+              </Link>
+            </div>
+          ) : (
+            <div></div>
+          )}
         </Container>
       </>
     );

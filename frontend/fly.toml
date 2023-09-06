@@ -1,0 +1,18 @@
+# fly.toml app configuration file generated for houzi-frontend on 2023-09-06T21:04:10+03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "houzi-frontend"
+primary_region = "arn"
+
+[build]
+  image = "flyio/hellofly:latest"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]

@@ -17,6 +17,7 @@ import { RootState } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import { userLogout } from "../../store/actionManager";
 import { useAppDispatch } from "../../store/hooks";
+import { CartModal } from "./CartModal";
 
 export const LoggedInHeaderBar = () => {
   const pages = ["Products"];
@@ -95,7 +96,7 @@ export const LoggedInHeaderBar = () => {
           >
             Houzi
           </Typography>
-
+          {/* Menu for when page is small */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -134,6 +135,7 @@ export const LoggedInHeaderBar = () => {
                 </MenuItem>
               ))}
             </Menu>
+            <CartModal />
           </Box>
           <HomeIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
@@ -164,8 +166,10 @@ export const LoggedInHeaderBar = () => {
                 {page}
               </Button>
             ))}
+            <Box sx={{ my: 2, color: "white", display: "block" }}>
+              <CartModal />
+            </Box>
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

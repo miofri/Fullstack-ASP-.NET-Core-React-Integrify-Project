@@ -9,8 +9,7 @@ export const orderDetailsThunk = createAsyncThunk(
     const orderResponse = await axios.get(
       `http://localhost:5145/api/v1/orders/userid/${id}`
     );
-    console.log("Dispatched orderDetailsThunk");
-    console.log(orderResponse);
+    // console.log("dispatching orderDetailsThunk");
     store.dispatch(orderSlice.actions.setOrder(orderResponse.data));
     return orderResponse.data;
   }

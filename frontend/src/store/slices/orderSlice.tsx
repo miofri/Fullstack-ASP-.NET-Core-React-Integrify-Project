@@ -11,7 +11,6 @@ export const orderSlice = createSlice({
   reducers: {
     setOrder: (state, action: PayloadAction<Order[]>) => {
       state.orderArray = action.payload;
-      console.log(state.orderArray);
     },
   },
 });

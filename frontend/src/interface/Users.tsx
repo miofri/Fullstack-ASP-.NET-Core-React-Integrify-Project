@@ -31,3 +31,13 @@ export interface CurrentUserInfo {
   avatar: string;
   address: string;
 }
+
+export interface AdminAllUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  userName: string;
+  avatar: string;
+  address: string;
+}

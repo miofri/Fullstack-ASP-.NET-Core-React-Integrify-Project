@@ -61,9 +61,7 @@ export const LoginPage = () => {
   }, [loginStatus]);
 
   useEffect(() => {
-    console.log("in second useeffect");
     if (orderInfo !== null && loginStatus == "success") {
-      console.log("in if");
       const get = async () => {
         const getOrderProducts = await dispatch(orderProductThunk(orderInfo));
       };
