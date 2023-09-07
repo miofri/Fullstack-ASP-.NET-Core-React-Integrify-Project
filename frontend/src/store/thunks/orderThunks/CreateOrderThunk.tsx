@@ -31,7 +31,7 @@ export const createOrderThunk = createAsyncThunk(
     };
 
     const createOrderResponse = await axios.post(
-      `http://localhost:5145/api/v1/orders`,
+      `${process.env.URL}/api/v1/orders`,
       toPostObject,
       postConfig
     );

@@ -24,7 +24,7 @@ export const AdminUserOperationPage = () => {
           headers: { Authorization: `Bearer ${bearerToken}` },
         };
         const response = await axios.delete(
-          `http://localhost:5145/api/v1/users/${id}`,
+          `${process.env.URL}/api/v1/users/${id}`,
           postConfig
         );
       };

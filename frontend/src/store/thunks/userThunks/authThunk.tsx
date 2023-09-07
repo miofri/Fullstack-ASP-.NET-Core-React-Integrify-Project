@@ -10,7 +10,7 @@ export const authThunk = createAsyncThunk(
     console.log(loginData);
 
     const response = await axios.post(
-      "http://localhost:5145/api/auth/",
+      `${process.env.URL}/api/auth/`,
       loginData
     );
     store.dispatch(authSlice.actions.setBearerToken(response.data));

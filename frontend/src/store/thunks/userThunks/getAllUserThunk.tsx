@@ -10,7 +10,7 @@ export const getAllUserThunk = createAsyncThunk(
 
     try {
       const response = await axios.get(
-        "http://localhost:5145/api/v1/users",
+        `${process.env.URL}/api/v1/users`,
         postConfig
       );
       console.log(response.data);

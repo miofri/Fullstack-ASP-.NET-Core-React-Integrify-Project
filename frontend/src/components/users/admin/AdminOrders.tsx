@@ -21,7 +21,7 @@ export const AdminOrders = () => {
         headers: { Authorization: `Bearer ${bearerToken}` },
       };
       const response = await axios.get(
-        "http://localhost:5145/api/v1/orders",
+        `${process.env.URL}/api/v1/orders`,
         postConfig
       );
       setAllOrders(response.data);

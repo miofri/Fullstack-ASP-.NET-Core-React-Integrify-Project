@@ -26,7 +26,7 @@ export const AdminProducts = () => {
           headers: { Authorization: `Bearer ${bearerToken}` },
         };
         const response = await axios.delete(
-          `http://localhost:5145/api/v1/products/${id}`,
+          `${process.env.URL}/api/v1/products/${id}`,
           postConfig
         );
       };
