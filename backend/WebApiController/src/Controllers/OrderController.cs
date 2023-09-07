@@ -1,8 +1,10 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApiBusiness.Abstraction;
 using WebApiBusiness.Dtos;
 using WebApiDomain.Entities;
+using WebApiDomain.Shared;
 
 namespace WebApiController.Controllers;
 
@@ -35,6 +37,14 @@ public class OrderController : CrudController<Order, OrderReadDto, OrderCreateDt
         var dtoWithId = await _orderService.CreateOrderAndOrderProducts(dto, newId);
 
         return Ok(dtoWithId);
+    }
+
+    [Authorize(Roles = "Admin")]
+    public override async Task<ActionResult<IEnumerable<OrderReadDto>>> GetAll(
+        [FromQuery] QueryOptions queryOptions
+    )
+    {
+        return Ok(await _orderService.GetAll(queryOptions));
     }
 
     [HttpGet("/api/v1/orders/userid/{id:Guid}")]

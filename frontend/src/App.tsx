@@ -18,6 +18,7 @@ import { AdminUserOperationPage } from "./components/users/admin/AdminUserOperat
 import { AdminProducts } from "./components/users/admin/AdminProducts";
 import { AdminProductPatchPage } from "./components/users/admin/AdminProductPatch";
 import { AdminProductPostPage } from "./components/users/admin/AdminProductPost";
+import { AdminOrders } from "./components/users/admin/AdminOrders";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -39,6 +40,7 @@ const App = () => {
             <Route path="/order" element={<OrderPage />} />
             <Route path="/singleproduct/:id" element={<SingleProductPage />} />
             <Route path="/admin/users" element={<AdminUserOperationPage />} />
+            <Route path="/admin/orders" element={<AdminOrders />} />
             <Route path="/admin/products" element={<AdminProducts />} />
             <Route
               path="/admin/patchproduct/:id"
