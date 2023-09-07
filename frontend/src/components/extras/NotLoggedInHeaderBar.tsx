@@ -33,16 +33,13 @@ export const NotLoggedInHeaderBar = () => {
   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    console.log("handleOpenNavMenu", event.currentTarget);
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    console.log("handleOpenUserMenu", event.currentTarget);
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
-    console.log("handleCloseNavMenu");
     setAnchorElNav(null);
   };
 

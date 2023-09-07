@@ -24,7 +24,7 @@ export const AdminUserOperationPage = () => {
           headers: { Authorization: `Bearer ${bearerToken}` },
         };
         const response = await axios.delete(
-          `${process.env.URL}/api/v1/users/${id}`,
+          `${process.env.REACT_APP_URL}/api/v1/users/${id}`,
           postConfig
         );
       };
@@ -37,7 +37,6 @@ export const AdminUserOperationPage = () => {
     const getUser = async () => {
       const response = await dispatch(getAllUserThunk(bearerToken));
       setAllUser(response.payload);
-      console.log(allUser);
     };
     getUser();
   }, [updateUserList]);

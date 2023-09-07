@@ -6,7 +6,9 @@ import { productSlice } from "../../slices/productSlice";
 export const getProductsThunk = createAsyncThunk(
   "product/waitProduct",
   async () => {
-    const response = await axios.get(`${process.env.URL}/api/v1/products`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_URL}/api/v1/products`
+    );
     store.dispatch(productSlice.actions.setProduct(response.data));
     return response.data;
   }

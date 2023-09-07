@@ -26,7 +26,7 @@ export const AdminProducts = () => {
           headers: { Authorization: `Bearer ${bearerToken}` },
         };
         const response = await axios.delete(
-          `${process.env.URL}/api/v1/products/${id}`,
+          `${process.env.REACT_APP_URL}/api/v1/products/${id}`,
           postConfig
         );
       };
@@ -39,7 +39,6 @@ export const AdminProducts = () => {
     const getProducts = async () => {
       const response = await dispatch(getProductsThunk());
       setAllProducts(response.payload);
-      console.log(allProducts);
     };
     getProducts();
   }, [updateProductList]);

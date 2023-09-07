@@ -9,7 +9,7 @@ export const orderProductThunk = createAsyncThunk(
   async (order: Order[]) => {
     order.forEach(async (element) => {
       const orderProductResponse = await axios.get(
-        `${process.env.URL}/api/v1/orderproducts/orderid/${element.id}`
+        `${process.env.REACT_APP_URL}/api/v1/orderproducts/orderid/${element.id}`
       );
       store.dispatch(
         orderProductSlice.actions.setProduct(orderProductResponse.data)

@@ -7,13 +7,12 @@ export const registerThunk = createAsyncThunk(
   async (registrationData: RegistrationData) => {
     try {
       const response = await axios.post(
-        `${process.env.URL}/api/v1/users`,
+        `${process.env.REACT_APP_URL}/api/v1/users`,
         registrationData
       );
       return "success";
     } catch (error: any) {
       if (error.response.data === "Email exists") {
-        console.log("failed");
         return "failed";
       }
       throw error;

@@ -31,7 +31,7 @@ export const AdminProductPostPage = () => {
         images: [data.get("image1"), data.get("image2")],
       };
       const response = await axios.post(
-        `${process.env.URL}/api/v1/products/`,
+        `${process.env.REACT_APP_URL}/api/v1/products/`,
         dataToPost,
         postConfig
       );

@@ -7,10 +7,8 @@ import { AuthInfo } from "../../../interface/Users";
 export const authThunk = createAsyncThunk(
   "auth/getToken",
   async (loginData: AuthInfo) => {
-    console.log(loginData);
-
     const response = await axios.post(
-      `${process.env.URL}/api/auth/`,
+      `${process.env.REACT_APP_URL}/api/auth/`,
       loginData
     );
     store.dispatch(authSlice.actions.setBearerToken(response.data));

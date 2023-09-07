@@ -11,7 +11,6 @@ export const orderProductSlice = createSlice({
   reducers: {
     setProduct: (state, action: PayloadAction<OrderProduct>) => {
       const updatedOrderProducts = [...state.orderProducts, action.payload];
-      console.log("updatedOrderProduct", updatedOrderProducts);
       state.orderProducts = updatedOrderProducts;
     },
     emptyProduct: (state) => {

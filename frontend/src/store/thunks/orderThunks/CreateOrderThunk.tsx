@@ -31,7 +31,7 @@ export const createOrderThunk = createAsyncThunk(
     };
 
     const createOrderResponse = await axios.post(
-      `${process.env.URL}/api/v1/orders`,
+      `${process.env.REACT_APP_URL}/api/v1/orders`,
       toPostObject,
       postConfig
     );

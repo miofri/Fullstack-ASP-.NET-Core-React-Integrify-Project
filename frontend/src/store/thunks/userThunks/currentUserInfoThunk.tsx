@@ -8,7 +8,7 @@ export const currentUserInfoThunk = createAsyncThunk(
   "currentUserInfo/getUserById",
   async (userFromStore: string) => {
     const response = await axios.get(
-      `${process.env.URL}/api/v1/users/${userFromStore}`
+      `${process.env.REACT_APP_URL}/api/v1/users/${userFromStore}`
     );
     store.dispatch(
       currentUserInfoSlice.actions.setCurrentUserInfo(response.data)

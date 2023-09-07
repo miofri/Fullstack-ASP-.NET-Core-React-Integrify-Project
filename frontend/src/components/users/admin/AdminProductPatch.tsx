@@ -35,7 +35,9 @@ export const AdminProductPatchPage = () => {
         images: [data.get("image1"), data.get("image2")],
       };
       const response = await axios.patch(
-        `${process.env.URL}/api/v1/products/${data.get("id")?.toString()}`,
+        `${process.env.REACT_APP_URL}/api/v1/products/${data
+          .get("id")
+          ?.toString()}`,
         dataToPost,
         postConfig
       );
