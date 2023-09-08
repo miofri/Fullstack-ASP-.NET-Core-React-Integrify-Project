@@ -1,12 +1,15 @@
-import { OrderProduct } from "../../interface/OrderProduct";
+import {
+  OrderProduct,
+  OrderProduct2DArray,
+} from "../../interface/OrderProduct";
 import { Products } from "../../interface/Products";
 
 export const mappingOrderProducts = (
-  orderProductsInfo: [OrderProduct[]],
+  orderProductsInfo: OrderProduct2DArray,
   products: Products[]
 ) => {
   let mappingAmountAndPrice: any = [];
-  orderProductsInfo.forEach((element) => {
+  orderProductsInfo.orderProducts.forEach((element) => {
     const extract = element.map(({ productId, amount }) => {
       const matchingId = products.find((prod) => prod.id === productId);
       if (matchingId) {
@@ -15,6 +18,7 @@ export const mappingOrderProducts = (
     });
     mappingAmountAndPrice = mappingAmountAndPrice.concat(extract);
   });
+
   return mappingAmountAndPrice;
 };
 

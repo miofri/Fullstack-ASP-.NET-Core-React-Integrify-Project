@@ -37,7 +37,7 @@ export const cartSlice = createSlice({
       }
     },
     emptyCart: (state) => {
-      state = cartsInitialValue;
+      state.cartItems = [];
     },
   },
 });

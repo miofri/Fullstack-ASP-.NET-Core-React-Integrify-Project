@@ -10,11 +10,15 @@ import { LoginPage } from "../users/LoginPage";
 import { useEffect, useState } from "react";
 import { orderProductSlice } from "../../store/slices/orderProduct";
 import { useAppDispatch } from "../../store/hooks";
+import { orderDetailsThunk } from "../../store/thunks/orderThunks/OrderDetailsThunk";
+import { orderProductThunk } from "../../store/thunks/orderThunks/OrderProductsThunk";
 
 export const OrderPage = () => {
   const bearerToken = useSelector((state: RootState) => state.auth.bearerToken);
+  const user = useSelector((state: RootState) => state.user);
+  const orders = useSelector((state: RootState) => state.orders);
   const orderProductsInfo = useSelector(
-    (state: OrderProduct2DArray) => state.orderProducts.orderProducts
+    (state: RootState) => state.orderProducts
   );
   const userInfo = useSelector((state: RootState) => state.userInfo);
   const products = useSelector((state: RootState) => state.product.products);
@@ -22,18 +26,25 @@ export const OrderPage = () => {
   const dispatch = useAppDispatch();
   const [mappingAmountAndPrice, setMappingAmountAndPrice] = useState<any>([]);
   const [finalVal, setFinalVal] = useState<Number>(0);
+  console.log(orderProductsInfo);
+
+  useEffect(() => {
+    const updatingOrder = async () => {
+      const order = await dispatch(orderDetailsThunk(user.id));
+      const orderProduct = await dispatch(orderProductThunk(order.payload));
+      console.log("here");
+    };
+    updatingOrder();
+  }, []);
 
   useEffect(() => {
     const updating = async () => {
-      if (orderProductsInfo.length > 0 && products.length > 0) {
-        dispatch(orderProductSlice.actions.emptyProduct());
-        setTimeout(() => {
-          const mapping = mappingOrderProducts(orderProductsInfo, products);
-          const calculate = totalVal(mapping);
+      if (orderProductsInfo !== undefined && products.length > 0) {
+        const mapping = mappingOrderProducts(orderProductsInfo, products);
+        const calculate = totalVal(mapping);
 
-          setMappingAmountAndPrice(mapping);
-          setFinalVal(calculate);
-        }, 1000);
+        setMappingAmountAndPrice(mapping);
+        setFinalVal(calculate);
       }
     };
     updating();

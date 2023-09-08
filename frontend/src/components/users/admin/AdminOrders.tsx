@@ -34,7 +34,7 @@ export const AdminOrders = () => {
         <Box>
           {allOrders!.map((order: Order) => (
             <Box key={order.id} sx={{ my: 2 }}>
-              <Typography variant="h5">{order.id}</Typography>
+              <Typography variant="h5">Order ID: {order.id}</Typography>
               <hr />
               User ID: {order.userId} <br />
               Status: {order.status} <br />

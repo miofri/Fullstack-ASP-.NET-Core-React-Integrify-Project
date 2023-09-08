@@ -19,7 +19,10 @@ import { currentUserSlice } from "./slices/currentUserSlice";
 import { currentUserInfoSlice } from "./slices/currentUserInfoSlice";
 import { persistedReducer } from "./persistConfig";
 import { OrderArray } from "../interface/Orders";
-import { OrderProductArray } from "../interface/OrderProduct";
+import {
+  OrderProduct2DArray,
+  OrderProductArray,
+} from "../interface/OrderProduct";
 import { orderSlice } from "./slices/orderSlice";
 import { orderProductSlice } from "./slices/orderProduct";
 import { cartSlice } from "./slices/cartSlice";
@@ -61,7 +64,7 @@ export type RootState = {
   user: CurrentUser;
   userInfo: CurrentUserInfo;
   orders: OrderArray;
-  orderProducts: OrderProductArray;
+  orderProducts: OrderProduct2DArray;
   cart: CartState;
 };
 

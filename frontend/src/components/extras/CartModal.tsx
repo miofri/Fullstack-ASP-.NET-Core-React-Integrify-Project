@@ -41,10 +41,6 @@ export const CartModal = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const bearerToken = useSelector((state: RootState) => state.auth.bearerToken);
-  const userId = useSelector((state: RootState) => state.user.id);
-  const orderInfo = useSelector((state: RootState) => state.orders.orderArray);
-
   const [open, setOpen] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cart, setCart] = useState<Cart[]>([]);
@@ -52,6 +48,7 @@ export const CartModal = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const bearerToken = useSelector((state: RootState) => state.auth.bearerToken);
   const cartFromStore = useSelector((state: RootState) => state.cart.cartItems);
 
   const handleCartItemDelete = (data: Products) => {
@@ -73,17 +70,9 @@ export const CartModal = () => {
 
   const handlePurchase = async (data: any) => {
     data = data.concat(bearerToken);
-
     const postOrder = await dispatch(createOrderThunk(data));
-
-    store.dispatch(orderProductSlice.actions.emptyProduct());
     store.dispatch(cartSlice.actions.emptyCart());
-
-    const getOrder = await dispatch(orderDetailsThunk(userId));
-
-    const updateOrderProducts = await dispatch(
-      orderProductThunk(getOrder.payload)
-    );
+    navigate("/thankyou");
   };
 
   useEffect(() => {

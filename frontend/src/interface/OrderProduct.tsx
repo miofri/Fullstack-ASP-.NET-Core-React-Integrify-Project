@@ -8,7 +8,5 @@ export interface OrderProductArray {
 }
 
 export interface OrderProduct2DArray {
-  orderProducts: {
-    orderProducts: [OrderProduct[]];
-  };
+  orderProducts: [OrderProduct[]];
 }

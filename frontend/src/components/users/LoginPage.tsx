@@ -66,7 +66,9 @@ export const LoginPage = () => {
         const getOrderProducts = await dispatch(orderProductThunk(orderInfo));
       };
       get();
-      navigate("/profile");
+      setTimeout(() => {
+        navigate("/profile");
+      }, 1000);
     }
   }, [orderInfo]);
 
