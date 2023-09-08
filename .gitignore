@@ -5,3 +5,4 @@ obj/
 *.http
 old/
 .env
+backend/WebApi/appsettings.json
