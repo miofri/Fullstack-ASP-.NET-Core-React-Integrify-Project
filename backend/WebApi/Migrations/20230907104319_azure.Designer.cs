@@ -14,8 +14,8 @@ using WebApiDomain.Entities;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230829125438_fixing_order2")]
-    partial class fixing_order2
+    [Migration("20230907104319_azure")]
+    partial class azure
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

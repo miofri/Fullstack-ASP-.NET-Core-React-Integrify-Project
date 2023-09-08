@@ -115,6 +115,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
             ;
+            policy.WithOrigins("https://houzi.vercel.app").AllowAnyMethod().AllowAnyHeader();
+            ;
         }
     );
 });
