@@ -19,6 +19,7 @@ import { ProductHero } from "./ProductsHero";
 import { LoggedInHeaderBar } from "../extras/LoggedInHeaderBar";
 import { NotLoggedInHeaderBar } from "../extras/NotLoggedInHeaderBar";
 import { cartSlice } from "../../store/slices/cartSlice";
+import { SortByNameOrPrice, SortByPriceRange } from "./SortingComponents";
 
 export const ProductPage = () => {
   const productFromStore = useSelector(
@@ -26,9 +27,12 @@ export const ProductPage = () => {
   );
   const bearerToken = useSelector((state: RootState) => state.auth.bearerToken);
   const [products, setProducts] = useState<Products[]>(productFromStore);
+  const [sortedProducts, setSortedProducts] =
+    useState<Products[]>(productFromStore);
 
   useEffect(() => {
     setProducts(productFromStore);
+    setSortedProducts(productFromStore);
   }, [productFromStore]);
 
   const handleAddToCart = (data: Products) => {
@@ -47,6 +51,26 @@ export const ProductPage = () => {
           maxWidth: "xl",
         }}
       >
+        <Box
+          sx={{
+            marginBottom: 1,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 1,
+          }}
+        >
+          <SortByNameOrPrice
+            products={products}
+            setProducts={setProducts}
+            setSortedProducts={setSortedProducts}
+          />
+          <SortByPriceRange
+            products={products}
+            setProducts={setSortedProducts}
+            setSortedProducts={setSortedProducts}
+          />
+        </Box>
         <Box sx={{ width: "100%" }}>
           <Grid
             container
@@ -54,7 +78,7 @@ export const ProductPage = () => {
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
             {/* columns calculation: sm: 8: on small size, number of columns are 8 / 4 = 2 columns (item xs) */}
-            {products.map((prod: Products) => (
+            {sortedProducts.map((prod: Products) => (
               <Grid key={prod.name} item xs={4}>
                 <Card sx={{ maxWidth: "sm" }}>
                   <CardMedia
