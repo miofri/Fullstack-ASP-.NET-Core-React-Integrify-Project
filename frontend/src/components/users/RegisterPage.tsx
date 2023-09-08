@@ -25,7 +25,7 @@ export const RegisterPage = () => {
     if (data !== null) {
       const dataToSend = {
         firstName: data.get("firstName")?.toString() || "",
-        lastName: data.get("password")?.toString() || "",
+        lastName: data.get("lastName")?.toString() || "",
         email: data.get("email")?.toString() || "",
         address: data.get("address")?.toString() || "",
         userName: data.get("username")?.toString() || "",
