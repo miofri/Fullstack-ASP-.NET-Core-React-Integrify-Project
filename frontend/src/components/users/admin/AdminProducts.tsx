@@ -12,6 +12,8 @@ import { Products } from "../../../interface/Products";
 import { getProductsThunk } from "../../../store/thunks/productsThunks/productThunks";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { LoggedInHeaderBar } from "../../extras/LoggedInHeaderBar";
+import { mainTheme } from "../../../theme";
 
 export const AdminProducts = () => {
   const [allProducts, setAllProducts] = useState<Products[]>();
@@ -45,7 +47,8 @@ export const AdminProducts = () => {
   if (allProducts !== undefined && allProducts.length > 0) {
     return (
       <Container maxWidth="md">
-        <Box>
+        <LoggedInHeaderBar />
+        <Box sx={{ marginTop: 15 }}>
           {allProducts!.map((product: Products) => (
             <>
               <Box sx={{ my: 2 }}>
@@ -67,10 +70,29 @@ export const AdminProducts = () => {
                   ))}
                 </Box>
               </Box>
-              <Button onClick={() => handleDelete(product.id)}>Delete</Button>
-              <Link to={`/admin/patchproduct/${product.id}`}>
-                <Button>Patch</Button>
-              </Link>
+              <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
+                <Button
+                  onClick={() => handleDelete(product.id)}
+                  variant="outlined"
+                  sx={{
+                    borderColor: mainTheme.palette.text.primary,
+                    color: mainTheme.palette.text.primary,
+                  }}
+                >
+                  Delete
+                </Button>
+                <Link to={`/admin/patchproduct/${product.id}`}>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      borderColor: mainTheme.palette.text.primary,
+                      color: mainTheme.palette.text.primary,
+                    }}
+                  >
+                    Patch
+                  </Button>
+                </Link>
+              </Box>
             </>
           ))}
         </Box>

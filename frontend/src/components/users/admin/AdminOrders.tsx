@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { Order } from "../../../interface/Orders";
 import { useAppDispatch } from "../../../store/hooks";
 import { RootState } from "../../../store/store";
+import { LoggedInHeaderBar } from "../../extras/LoggedInHeaderBar";
 
 export const AdminOrders = () => {
   const [allOrders, setAllOrders] = useState<Order[]>();
@@ -31,7 +32,8 @@ export const AdminOrders = () => {
   if (allOrders !== undefined && allOrders.length > 0) {
     return (
       <Container maxWidth="md">
-        <Box>
+        <LoggedInHeaderBar />
+        <Box sx={{ marginTop: 15 }}>
           {allOrders!.map((order: Order) => (
             <Box key={order.id} sx={{ my: 2 }}>
               <Typography variant="h5">Order ID: {order.id}</Typography>

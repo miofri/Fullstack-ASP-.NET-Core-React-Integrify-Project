@@ -26,7 +26,6 @@ export const OrderPage = () => {
   const dispatch = useAppDispatch();
   const [mappingAmountAndPrice, setMappingAmountAndPrice] = useState<any>([]);
   const [finalVal, setFinalVal] = useState<Number>(0);
-  console.log(orderProductsInfo);
 
   useEffect(() => {
     const updatingOrder = async () => {
@@ -42,6 +41,7 @@ export const OrderPage = () => {
       if (orderProductsInfo !== undefined && products.length > 0) {
         const mapping = mappingOrderProducts(orderProductsInfo, products);
         const calculate = totalVal(mapping);
+        console.log(mapping);
 
         setMappingAmountAndPrice(mapping);
         setFinalVal(calculate);

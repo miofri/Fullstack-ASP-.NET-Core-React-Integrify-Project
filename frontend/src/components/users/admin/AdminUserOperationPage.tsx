@@ -10,6 +10,8 @@ import { RootState } from "../../../store/store";
 import { Box, Button, Container, Typography } from "@mui/material";
 import { AdminAllUser } from "../../../interface/Users";
 import axios from "axios";
+import { mainTheme } from "../../../theme";
+import { LoggedInHeaderBar } from "../../extras/LoggedInHeaderBar";
 
 export const AdminUserOperationPage = () => {
   const [allUser, setAllUser] = useState<AdminAllUser[]>();
@@ -43,7 +45,8 @@ export const AdminUserOperationPage = () => {
   if (allUser !== undefined && allUser.length > 0) {
     return (
       <Container maxWidth="md">
-        <Box>
+        <LoggedInHeaderBar />
+        <Box sx={{ marginTop: 15 }}>
           {allUser!.map((user: AdminAllUser) => (
             <>
               <Box sx={{ my: 2 }}>
@@ -55,7 +58,16 @@ export const AdminUserOperationPage = () => {
                 Email: {user.email} <br />
                 Address: {user.address}
               </Box>
-              <Button onClick={() => handleDelete(user.id)}>Delete user</Button>
+              <Button
+                onClick={() => handleDelete(user.id)}
+                variant="outlined"
+                sx={{
+                  borderColor: mainTheme.palette.text.primary,
+                  color: mainTheme.palette.text.primary,
+                }}
+              >
+                Delete user
+              </Button>
             </>
           ))}
         </Box>

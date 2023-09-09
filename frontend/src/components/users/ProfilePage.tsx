@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
 import { LoggedInHeaderBar } from "../extras/LoggedInHeaderBar";
 import { AdminUserOperationPage } from "./admin/AdminUserOperationPage";
+import { mainTheme } from "../../theme";
 
 export const ProfilePage = () => {
   const userInfoFromStore = useSelector((state: RootState) => state.userInfo);
@@ -29,7 +30,7 @@ export const ProfilePage = () => {
               alignItems: "center",
               flexDirection: "column",
               gap: 2,
-              my: 12,
+              marginTop: 12,
               textAlign: "center",
               // backgroundColor: "pink",
             }}
@@ -45,6 +46,9 @@ export const ProfilePage = () => {
                 flexDirection: "row",
                 textAlign: "left",
                 my: 1,
+                border: "solid",
+                borderWidth: 1,
+                padding: 2,
                 width: "100%",
               }}
             >
@@ -60,17 +64,50 @@ export const ProfilePage = () => {
           </Box>
           {/* <LogoutButton /> */}
           {userRole == "Admin" ? (
-            <div>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                gap: 1,
+                alignContent: "center",
+                justifyContent: "center",
+                marginTop: 5,
+              }}
+            >
               <Link to="/admin/users">
-                <Button>Users</Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderColor: mainTheme.palette.text.primary,
+                    color: mainTheme.palette.text.primary,
+                  }}
+                >
+                  Users
+                </Button>
               </Link>
               <Link to="/admin/products">
-                <Button>Products</Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderColor: mainTheme.palette.text.primary,
+                    color: mainTheme.palette.text.primary,
+                  }}
+                >
+                  Products
+                </Button>
               </Link>
               <Link to="/admin/orders">
-                <Button>Orders</Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderColor: mainTheme.palette.text.primary,
+                    color: mainTheme.palette.text.primary,
+                  }}
+                >
+                  Orders
+                </Button>
               </Link>
-            </div>
+            </Box>
           ) : (
             <div></div>
           )}
