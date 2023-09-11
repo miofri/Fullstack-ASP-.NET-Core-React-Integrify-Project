@@ -9,6 +9,8 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v.14-drakblue)
 ![Microsoft Azure](https://img.shields.io/badge/PostgreSQL-v.14-darkblue)
 
+### Live site: https://houzi.vercel.app
+
 Houzi is a E-Commerce fullstack project and was created with React, Redux, and MUI on the front-end, and ASP .NET Core 7 on the back-end. The goal is to provide a seamless experience for users, along with robust management system for administrators. The database as well as the backend API are hosted in Microsoft Azure.
 
 The project follows CLEAN architecture. 
