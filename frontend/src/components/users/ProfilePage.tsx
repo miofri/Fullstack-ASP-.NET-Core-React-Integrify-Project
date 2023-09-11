@@ -74,39 +74,36 @@ export const ProfilePage = () => {
                 marginTop: 5,
               }}
             >
-              <Link to="/admin/users">
-                <Button
-                  variant="outlined"
-                  sx={{
-                    borderColor: mainTheme.palette.text.primary,
-                    color: mainTheme.palette.text.primary,
-                  }}
-                >
-                  Users
-                </Button>
-              </Link>
-              <Link to="/admin/products">
-                <Button
-                  variant="outlined"
-                  sx={{
-                    borderColor: mainTheme.palette.text.primary,
-                    color: mainTheme.palette.text.primary,
-                  }}
-                >
-                  Products
-                </Button>
-              </Link>
-              <Link to="/admin/orders">
-                <Button
-                  variant="outlined"
-                  sx={{
-                    borderColor: mainTheme.palette.text.primary,
-                    color: mainTheme.palette.text.primary,
-                  }}
-                >
-                  Orders
-                </Button>
-              </Link>
+              <Button
+                variant="outlined"
+                href="/admin/users"
+                sx={{
+                  borderColor: mainTheme.palette.text.primary,
+                  color: mainTheme.palette.text.primary,
+                }}
+              >
+                Users
+              </Button>
+              <Button
+                href="/admin/products"
+                variant="outlined"
+                sx={{
+                  borderColor: mainTheme.palette.text.primary,
+                  color: mainTheme.palette.text.primary,
+                }}
+              >
+                Products
+              </Button>
+              <Button
+                variant="outlined"
+                href="/admin/orders"
+                sx={{
+                  borderColor: mainTheme.palette.text.primary,
+                  color: mainTheme.palette.text.primary,
+                }}
+              >
+                Orders
+              </Button>
             </Box>
           ) : (
             <div></div>

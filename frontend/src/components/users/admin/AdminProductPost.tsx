@@ -53,7 +53,7 @@ export const AdminProductPostPage = () => {
           }}
         >
           <Typography component="h1" variant="h5">
-            Patch product
+            Post product
           </Typography>
           <Box
             component="form"

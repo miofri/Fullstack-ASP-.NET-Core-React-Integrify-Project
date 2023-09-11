@@ -48,7 +48,18 @@ export const AdminProducts = () => {
     return (
       <Container maxWidth="md">
         <LoggedInHeaderBar />
+
         <Box sx={{ marginTop: 15 }}>
+          <Button
+            variant="outlined"
+            href="/admin/postproduct"
+            sx={{
+              borderColor: mainTheme.palette.text.primary,
+              color: mainTheme.palette.text.primary,
+            }}
+          >
+            Post new product
+          </Button>
           {allProducts!.map((product: Products) => (
             <>
               <Box sx={{ my: 2 }}>
