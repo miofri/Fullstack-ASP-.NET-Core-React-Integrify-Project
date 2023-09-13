@@ -19,7 +19,7 @@ using WebApiDomain.Entities;
 var builder = WebApplication.CreateBuilder(args);
 var timeStampInterceptor = new TimeStampInterceptor();
 var npgsqlBuilder = new NpgsqlDataSourceBuilder(
-    builder.Configuration.GetConnectionString("Default")
+    builder.Configuration.GetConnectionString("Azure")
 );
 npgsqlBuilder.MapEnum<Role>();
 npgsqlBuilder.MapEnum<OrderStatus>();
