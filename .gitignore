@@ -6,3 +6,6 @@ obj/
 old/
 .env
 backend/WebApi/appsettings.json
+backend/.dockerignore
+backend/Dockerfile
+backend/fly.toml

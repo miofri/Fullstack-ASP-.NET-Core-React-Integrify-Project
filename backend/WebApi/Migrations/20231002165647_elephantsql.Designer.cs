@@ -14,8 +14,8 @@ using WebApiDomain.Entities;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230907104319_azure")]
-    partial class azure
+    [Migration("20231002165647_elephantsql")]
+    partial class elephantsql
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

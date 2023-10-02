@@ -8,7 +8,7 @@ using WebApiDomain.Entities;
 namespace WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class azure : Migration
+    public partial class elephantsql : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
